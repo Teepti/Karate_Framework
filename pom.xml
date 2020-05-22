@@ -2,33 +2,101 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>Karate_Framework</groupId>
-  <artifactId>Demo</artifactId>
+  <groupId>Test</groupId>
+  <artifactId>Framework_API_Karate</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Demo</name>
+  <name>Framework_API_Karate</name>
   <url>http://maven.apache.org</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.version>3.6.0</maven.compiler.version>
+        <karate.version>0.9.6.RC2</karate.version>
+        <junit-platform.version>5.3.1</junit-platform.version>
+    </properties> 
+   
   <dependencies>
-  	<dependency>
-	    <groupId>com.intuit.karate</groupId>
-	    <artifactId>karate-apache</artifactId>
-	    <version>0.9.6.RC2</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.intuit.karate</groupId>
-	    <artifactId>karate-junit4</artifactId>
-	    <version>0.9.6.RC2</version>
-	</dependency>
-	<dependency>
-    <groupId>net.masterthought</groupId>
-    <artifactId>cucumber-reporting</artifactId>
-    <version>5.2.0</version>
-    </dependency>
+       <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>            
+       <dependency>
+			<groupId>org.junit.jupiter</groupId>
+			 <artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.1.0</version>
+    <scope>test</scope>
+</dependency>
+       	<dependency>
+		    <groupId>net.masterthought</groupId>
+		    <artifactId>cucumber-reporting</artifactId>
+		    <version>5.2.0</version>
+    	</dependency>      		
+   
   </dependencies>
+  <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-Werror</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                <suitexmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+				</suitexmlFiles>
+                <systemPropertyVariables>
+			            <propertyName>${karate.env}</propertyName>
+			    </systemPropertyVariables>
+                
+                </configuration>
+            </plugin> 
+                        <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+
+                <artifactId>maven-failsafe-plugin</artifactId>
+
+                <version>2.22.0</version>
+
+            
+
+            </plugin>           
+        </plugins>        
+    </build>       
+    
 </project>
