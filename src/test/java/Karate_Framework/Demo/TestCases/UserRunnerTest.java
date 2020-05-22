@@ -1,5 +1,5 @@
 
-package Test.Framework_API_Karate.TestCases;
+package Karate_Framework.Demo.TestCases;
 
 import java.io.File;
 import java.text.DateFormat;
